@@ -1,3 +1,9 @@
+noseX = 0;
+noseY = 0;
+leftWristX = 0;
+rightWristX = 0;
+difference = 0;
+
 function setup(){
     canvas = createCanvas(550, 550);
     canvas.position(560, 150);
@@ -9,6 +15,11 @@ function setup(){
 
 function draw(){
     background("#969A97");
+    fill('#F90093');
+    stroke('#F90093');
+    textSize(difference);
+    text('Chanda', noseX, noseY);
+    document.getElementById("font_size").innerHTML = "The size of the font is " + difference;
 }
 
 function preload(){
@@ -22,5 +33,14 @@ function modelLoaded(){
 function gotPoses(results){
     if(results.length > 0){
         console.log(results);
+        noseX = results[0].pose.nose.x;
+        noseY = results[0].pose.nose.y;
+        console.log("noseX = " + noseX + " and noseY = " + noseY);
+        leftWristX = results[0].pose.leftWrist.x;
+        rightWristX = results[0].pose.rightWrist.x;
+        difference = floor(leftWristX - rightWristX);
+        console.log("leftWristX = " + leftWristX + " rightWristX = " + rightWristX + " difference = " + difference);
     }
+
 }
+
